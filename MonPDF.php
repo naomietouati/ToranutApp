@@ -47,7 +47,7 @@ function genererPDF($tableauxTaches)
     }
 
     // Sauvegarder le contenu dans le fichier PDF
-        $this->Output('F', 'Toranut.pdf');
+       // $this->Output('F', 'Toranut.pdf');
 }
 
 }
