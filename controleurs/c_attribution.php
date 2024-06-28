@@ -5,7 +5,7 @@
  */
 
 $pdo = PdoGsb::getPDOGsb();
-$action = filter_input(INPUT_GET, 'action',);
+$action = filter_input(INPUT_GET, 'action');
 require('MonPDF.php');
 
 switch ($action) {
@@ -19,29 +19,24 @@ switch ($action) {
         $listeElevePresente = $pdo->afficherElevePresente();
         $_SESSION["listeEleve"] = $listeElevePresente;
         shuffle($_SESSION["listeEleve"]);
-        $N = 0;
+        $tableauxTaches = array();
 
         // Repas du Soir
-        if ($_SESSION['chabbat']==true && $_SESSION['repasSoir'] > 0) {
+        if ($_SESSION['chabbat'] && $_SESSION['repasSoir'] > 0) {
             $K = 1 + $_SESSION['repasSoir'];
-            
         } else {
             $K = 1;
         }
-        $nomRepasS = ""; 
+
+        $N = 0;
         while ($N < $K) {
             $tableauTachesSoir = array();
-            if ($N == 1 || $_SESSION['chabbat'] == false) {
+            if ($N == 1 || !$_SESSION['chabbat']) {
                 $nomRepasS = "1er Soir";
-            } else if ($N == 2 || ($_SESSION['chabbat'] == false && $N == 1)) {
-                $nomRepasS = "2 eme Soir";
-            } else if ($_SESSION['chabbat'] == true) {
+            } else if ($N == 2 || (!$_SESSION['chabbat'] && $N == 1)) {
+                $nomRepasS = "2ème Soir";
+            } else if ($_SESSION['chabbat']) {
                 $nomRepasS = "Vendredi Soir";
-            } 
-            if (empty($_SESSION["listeEleve"])) {
-                $listeElevePresente = $pdo->afficherElevePresente();
-                $_SESSION["listeEleve"] = $listeElevePresente;
-                shuffle($_SESSION["listeEleve"]);
             }
 
             $repasS = $pdo->NbPersTacheS(); // tableau des tâches (id, nom, nbPers)
@@ -60,21 +55,19 @@ switch ($action) {
                     $eleve = array_shift($_SESSION["listeEleve"]);
                     $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
                 }
-                
 
                 $tableauTachesSoir[] = array(
                     'nom' => $nomTache,
                     'eleves' => $elevesAttribues
                 );
             }
-             $tableauxTaches[] = array(
+
+            $tableauxTaches[] = array(
                 'nomRepas' => $nomRepasS,
                 'tableau' => $tableauTachesSoir
             );
-            
-            $pdf = new MonPDF();
-            $pdf->genererPDF($tableauxTaches);
-            $N = $N + 1;
+
+            $N++;
         }
 
         // Repas du Midi
@@ -85,21 +78,14 @@ switch ($action) {
         }
 
         $N = 0;
-        $nomRepasM = ""; // Réinitialisation en dehors de la boucle
         while ($N < $K) {
             $tableauTachesMidi = array();
-            if ($N == 1 || $_SESSION['chabbat'] == false) {
+            if ($N == 1 || !$_SESSION['chabbat']) {
                 $nomRepasM = "1er Midi";
-            } else if ($N == 2 || ($_SESSION['chabbat'] == false && $N == 1)) {
-                $nomRepasM = "2eme Midi";
-            } else if ($_SESSION['chabbat'] == true) {
+            } else if ($N == 2 || (!$_SESSION['chabbat'] && $N == 1)) {
+                $nomRepasM = "2ème Midi";
+            } else if ($_SESSION['chabbat']) {
                 $nomRepasM = "Chabbat Midi";
-            }
-
-            if (empty($_SESSION["listeEleve"])) {
-                $listeElevePresente = $pdo->afficherElevePresente();
-                $_SESSION["listeEleve"] = $listeElevePresente;
-                shuffle($_SESSION["listeEleve"]);
             }
 
             $repasM = $pdo->NbPersTacheM(); // tableau des tâches (id, nom, nbPers)
@@ -124,13 +110,13 @@ switch ($action) {
                     'eleves' => $elevesAttribues
                 );
             }
-             $tableauxTaches[] = array(
+
+            $tableauxTaches[] = array(
                 'nomRepas' => $nomRepasM,
                 'tableau' => $tableauTachesMidi
             );
-            $pdf = new MonPDF();
-            $pdf->genererPDF($tableauxTaches);
-            $N = $N + 1;
+
+            $N++;
         }
 
         // Repas de Nehilat hahag
@@ -141,18 +127,13 @@ switch ($action) {
         }
 
         $N = 0;
-        $nomRepasC = "";
         while ($N < $K) {
             $tableauTachesC = array();
-            if ($N == 1 && $_SESSION['chabbat']==true || $_SESSION['chabbat']==false) {
+            if ($N == 1 && $_SESSION['chabbat'] || !$_SESSION['chabbat']) {
                 $nomRepasC = "Nehila Hah'ag";
-            }if($_SESSION['chabbat']==true && $N == 0){
-                $nomRepasC = "Seouda Chlichit";
             }
-            if (empty($_SESSION["listeEleve"])) {
-                $listeElevePresente = $pdo->afficherElevePresente();
-                $_SESSION["listeEleve"] = $listeElevePresente;
-                shuffle($_SESSION["listeEleve"]);
+            if ($_SESSION['chabbat'] && $N == 0) {
+                $nomRepasC = "Seouda Chlichit";
             }
 
             $repasC = $pdo->NbPersTacheC(); // tableau des tâches (id, nom, nbPers)
@@ -177,22 +158,27 @@ switch ($action) {
                     'eleves' => $elevesAttribues
                 );
             }
-             $tableauxTaches[] = array(
+
+            $tableauxTaches[] = array(
                 'nomRepas' => $nomRepasC,
                 'tableau' => $tableauTachesC
             );
-            $pdf = new MonPDF();
-            $pdf->genererPDF($tableauxTaches);
-            $N = $N + 1;
-          
-        }
-    
-        ob_start();
-        header("Content-Disposition: attachment; filename=Tableaux_Toranout.pdf");
-        $pdf->Output('D', 'Tableaux_Toranout.pdf');
-        ob_end_flush();
-        
-        break;
 
- 
+            $N++;
+        }
+
+        // Génération du PDF une seule fois après avoir construit toutes les données
+        $pdf = new MonPDF();
+        $pdf->genererPDF($tableauxTaches);
+
+        // Capture la sortie dans un buffer et envoie le PDF au navigateur
+        ob_start();
+        $pdf->Output('S'); // Capture la sortie dans un buffer
+        $pdfContent = ob_get_clean();
+
+        // Envoi du PDF généré au navigateur
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="Tableaux_Toranout.pdf"');
+        echo $pdfContent;
+        break;
 }
