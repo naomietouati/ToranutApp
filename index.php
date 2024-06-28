@@ -1,5 +1,7 @@
 <?php
 require_once 'includes/class.pdogsb.inc.php';
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 $pdo = PdoGsb::getPDOGsb();
 include 'vues/v_entete.php';
