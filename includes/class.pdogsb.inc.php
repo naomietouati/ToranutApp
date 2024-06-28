@@ -8,12 +8,13 @@ class PdoGsb
     private function __construct()
     {
         try {
-            PdoGsb::$monPdo = new PDO('sqlite:' . PdoGsb::$bdd);
-            PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            PdoGsb::$monPdo->exec('PRAGMA foreign_keys = ON;');
-            PdoGsb::$monPdo->exec('PRAGMA encoding = "UTF-8";');
+            self::$monPdo = new PDO('sqlite:' . self::$bdd);
+            self::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            self::$monPdo->exec('PRAGMA foreign_keys = ON;');
+            self::$monPdo->exec('PRAGMA encoding = "UTF-8";');
         } catch (PDOException $e) {
             echo 'Connexion échouée : ' . $e->getMessage();
+            die(); // Arrête le script si la connexion échoue
         }
     }
 
