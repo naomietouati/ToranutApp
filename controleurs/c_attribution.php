@@ -175,7 +175,7 @@ switch ($action) {
         ob_start();
         $pdf->Output('D', 'Tableaux_Toranout.pdf');
         ob_end_flush();
-        
+
         exit; // Assurez-vous d'arrêter l'exécution ici après avoir envoyé le PDF
         break;
 }
