@@ -180,5 +180,6 @@ switch ($action) {
         header('Content-Type: application/pdf');
         header('Content-Disposition: attachment; filename="Tableaux_Toranout.pdf"');
         echo $pdfContent;
+        exit; // Assurez-vous d'arrêter l'exécution ici après avoir envoyé le PDF
         break;
 }
