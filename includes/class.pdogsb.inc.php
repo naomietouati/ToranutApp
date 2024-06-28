@@ -1,17 +1,26 @@
 <?php
 class PdoGsb
 {
-    private static $bdd = 'includes/toranut_db.db';
+    private static $hostname = 'eu-cluster-west-01.k8s.cleardb.net';
+    private static $username = 'b015a03328eefb';
+    private static $password = 'cf3b287c';
+    private static $database = 'heroku_c48f9fa37479c78';
     private static $monPdo;
     private static $monPdoGsb = null;
 
     private function __construct()
     {
         try {
-            self::$monPdo = new PDO('sqlite:' . self::$bdd);
+            // Création de la chaîne de connexion PDO pour MySQL
+            $dsn = 'mysql:host=' . self::$hostname . ';dbname=' . self::$database;
+            
+            // Création de l'objet PDO
+            self::$monPdo = new PDO($dsn, self::$username, self::$password);
+            
+            // Configuration des options PDO
             self::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            self::$monPdo->exec('PRAGMA foreign_keys = ON;');
-            self::$monPdo->exec('PRAGMA encoding = "UTF-8";');
+            self::$monPdo->exec('SET NAMES utf8'); // Définition du jeu de caractères
+            
         } catch (PDOException $e) {
             echo 'Connexion échouée : ' . $e->getMessage();
             die(); // Arrête le script si la connexion échoue
@@ -20,7 +29,7 @@ class PdoGsb
 
     public static function getPDOGsb()
     {
-        if (self::$monPdoGsb == null) {
+        if (self::$monPdoGsb === null) {
             self::$monPdoGsb = new PdoGsb();
         }
         return self::$monPdoGsb;
