@@ -1,5 +1,4 @@
 <?php
-
 class PdoGsb
 {
     private static $bdd = 'includes/toranut_db.db';
@@ -8,18 +7,22 @@ class PdoGsb
 
     private function __construct()
     {
-        PdoGsb::$monPdo = new PDO('sqlite:' . PdoGsb::$bdd);
-        PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        PdoGsb::$monPdo->exec('PRAGMA foreign_keys = ON;');
-        PdoGsb::$monPdo->exec('PRAGMA encoding = "UTF-8";');
+        try {
+            PdoGsb::$monPdo = new PDO('sqlite:' . PdoGsb::$bdd);
+            PdoGsb::$monPdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            PdoGsb::$monPdo->exec('PRAGMA foreign_keys = ON;');
+            PdoGsb::$monPdo->exec('PRAGMA encoding = "UTF-8";');
+        } catch (PDOException $e) {
+            echo 'Connexion échouée : ' . $e->getMessage();
+        }
     }
 
     public static function getPDOGsb()
     {
-        if (PdoGsb::$monPdoGsb == null) {
-            PdoGsb::$monPdoGsb = new PdoGsb();
+        if (self::$monPdoGsb == null) {
+            self::$monPdoGsb = new PdoGsb();
         }
-        return PdoGsb::$monPdoGsb;
+        return self::$monPdoGsb;
     }
 
     public function BDD_Existe()
