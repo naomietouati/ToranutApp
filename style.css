@@ -1,0 +1,290 @@
+.header {
+    margin-top: 10px;
+}
+
+body {
+  background-size: 100% auto;
+  background-position: top left;
+  background-repeat: repeat;
+  background-image: url("images/fondcerisaie.jpg");
+  margin: 0;
+  padding: 250px;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+header {
+  background-color: whitesmoke;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  margin-top: -150px;
+  color: white;
+  margin-bottom: -50px;
+  width: auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
+
+
+.logo {
+  width: 170px; 
+  height: 170px;
+  border-radius: 50%; 
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+}
+
+.heading {
+  color: black;
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  color: purple;
+  background-color: white;
+  margin-bottom: 10px;
+  border: 2px solid purple;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+
+.btn:hover {
+  background-color: white;
+  color: goldenrod;
+  border-color: goldenrod;
+}
+
+.btn-block {
+  margin-bottom: 10px;
+}
+
+.btnDanger{
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  color: red;
+  background-color: white;
+  margin-bottom: 10px;
+  border: 2px solid red;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.btnSucces{
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  color: green;
+  background-color: white;
+  margin-bottom: 10px;
+  border: 2px solid green;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.containerAbsente {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  margin-top: 60px;
+}
+
+h2 {
+  text-align: center;
+  color: goldenrod;
+}
+
+h4{
+  color: goldenrod;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+
+.radioChoice {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  margin-top: 60px;
+  border-radius: 8px;
+}
+
+.shifted {
+  margin-left: 30px;
+  padding: 7px;
+  color: #333;
+}
+
+.choixRepas.shifted label {
+  color: black; 
+}
+
+.choixRepas.shifted input[type="number"] {
+  width: auto;
+  margin-bottom: 6px; 
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1px; 
+  background-color: #f7f7f7;
+  color: #333;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+.tableaucontainer {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+
+th, td {
+  padding: 4px;
+  text-align: left;
+  max-width: 600px;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.form-control {
+  width: auto;
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.btnUpdate {
+  display: inline-block;
+  width: auto;
+  padding: 4px;
+  text-align: left;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px; 
+  color: red;
+  border: 2px solid red;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+.tdUpdate{
+  padding: 5px;
+  text-align: center;
+  max-width: 600px;
+}
+
+
+.loading-container {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  margin-top: 60px;
+
+}
+
+.spinner {
+  width: 120px;
+  height: 120px;
+  margin-top: 50px;
+  border-radius: 50%;
+  border: 3px solid goldenrod;
+  border-top: 3px solid transparent;
+  animation: spin 5s;
+  margin-bottom: 20px;
+  background-image:url("images/logoBethElisheva.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: top left;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+
