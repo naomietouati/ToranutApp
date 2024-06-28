@@ -1,5 +1,5 @@
 <?php
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, 'action');
 $bddExiste = $pdo->BDD_Existe();
 include 'vues/v_accueil.php';
                 

@@ -6,7 +6,7 @@ include 'vues/v_entete.php';
 $bddExiste = $pdo->BDD_Existe();
 session_start();
 
-$uc = filter_input(INPUT_GET, 'uc', FILTER_SANITIZE_STRING);
+$uc = filter_input(INPUT_GET, 'uc');
 
 if (!$bddExiste) {
     $uc = 'initialisation';
