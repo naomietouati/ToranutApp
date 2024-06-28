@@ -8,7 +8,7 @@
 
 include 'vues/v_choix_format.php';
 
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, 'action',);
 
 switch ($action) {
     case 'validation_choix':

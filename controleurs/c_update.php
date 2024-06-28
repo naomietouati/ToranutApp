@@ -5,7 +5,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
  */
 
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, 'action',);
 $pdo = PdoGsb::getPdoGsb(); 
 
 switch ($action) {

@@ -5,7 +5,7 @@
  */
 
 $pdo = PdoGsb::getPDOGsb();
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, 'action',);
 require('MonPDF.php');
 
 switch ($action) {

@@ -1,6 +1,6 @@
 <?php
 $tableauEleve = array();
-$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$action = filter_input(INPUT_GET, 'action',);
 
 switch ($action) {
     case 'ajouterEleve':
