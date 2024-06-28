@@ -168,12 +168,14 @@ switch ($action) {
         }
 
         // Génération du PDF une seule fois après avoir construit toutes les données
+        // Génération du PDF une seule fois après avoir construit toutes les données
         $pdf = new MonPDF();
-        $pdf->genererPDF($tableauxTaches);
+        $pdfFilePath = $pdf->genererPDF($tableauxTaches);
 
-        // Capture la sortie dans un buffer et envoie le PDF au navigateur
+        // Capture de la sortie dans un buffer et envoi du PDF au navigateur
         ob_start();
-        $pdf->Output('D', 'Tableaux_Toranout.pdf');
+        header("Content-Disposition: attachment; filename=Tableaux_Toranout.pdf");
+        readfile($pdfFilePath);
         ob_end_flush();
 
         exit; // Assurez-vous d'arrêter l'exécution ici après avoir envoyé le PDF
