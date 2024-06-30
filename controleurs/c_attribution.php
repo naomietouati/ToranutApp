@@ -22,53 +22,53 @@ switch ($action) {
         $tableauxTaches = array();
 
         // Repas du Soir
-        if ($_SESSION['chabbat'] && $_SESSION['repasSoir'] > 0) {
-            $K = 1 + $_SESSION['repasSoir'];
-        } else {
-            $K = 1;
+if ($_SESSION['chabbat'] && $_SESSION['repasSoir'] > 0) {
+    $K = 1 + $_SESSION['repasSoir'];
+} else {
+    $K = 1;
+}
+
+$N = 0;
+while ($N < $K) {
+    $tableauTachesSoir = array();
+    if ($N == 1 || !$_SESSION['chabbat']) {
+        $nomRepasS = "1er Soir";
+    } else if ($N == 2 || (!$_SESSION['chabbat'] && $N == 1)) {
+        $nomRepasS = "2ème Soir";
+    } else if ($_SESSION['chabbat']) {
+        $nomRepasS = "Vendredi Soir";
+    }
+
+    $repasS = $pdo->NbPersTacheS(); // tableau des tâches (id, nom, nbPers)
+
+    foreach ($repasS as $tache) {
+        $nomTache = $tache['nom'];
+        $nbPersRequis = $tache['nbPers'];
+
+        $elevesAttribues = array();
+        for ($i = 0; $i < $nbPersRequis; $i++) {
+            if (empty($_SESSION["listeEleve"])) {
+                $listeElevePresente = $pdo->afficherElevePresente();
+                $_SESSION["listeEleve"] = $listeElevePresente;
+                shuffle($_SESSION["listeEleve"]);
+            }
+            $eleve = array_shift($_SESSION["listeEleve"]);
+            $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
         }
 
-        $N = 0;
-        while ($N < $K) {
-            $tableauTachesSoir = array();
-            if ($N == 1 || !$_SESSION['chabbat']) {
-                $nomRepasS = "1er Soir";
-            } else if ($N == 2 || (!$_SESSION['chabbat'] && $N == 1)) {
-                $nomRepasS = "2ème Soir";
-            } else if ($_SESSION['chabbat']) {
-                $nomRepasS = "Vendredi Soir";
-            }
+        $tableauTachesSoir[] = array(
+            'nom' => $nomTache,
+            'eleves' => $elevesAttribues
+        );
+    }
 
-            $repasS = $pdo->NbPersTacheS(); // tableau des tâches (id, nom, nbPers)
+    $tableauxTaches[] = array(
+        'nomRepas' => $nomRepasS,
+        'tableau' => $tableauTachesSoir
+    );
 
-            foreach ($repasS as $tache) {
-                $nomTache = $tache['nom'];
-                $nbPersRequis = $tache['nbPers'];
-
-                $elevesAttribues = array();
-                for ($i = 0; $i < $nbPersRequis; $i++) {
-                    if (empty($_SESSION["listeEleve"])) {
-                        $listeElevePresente = $pdo->afficherElevePresente();
-                        $_SESSION["listeEleve"] = $listeElevePresente;
-                        shuffle($_SESSION["listeEleve"]);
-                    }
-                    $eleve = array_shift($_SESSION["listeEleve"]);
-                    $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
-                }
-
-                $tableauTachesSoir[] = array(
-                    'nom' => $nomTache,
-                    'eleves' => $elevesAttribues
-                );
-            }
-
-            $tableauxTaches[] = array(
-                'nomRepas' => $nomRepasS,
-                'tableau' => $tableauTachesSoir
-            );
-
-            $N++;
-        }
+    $N++;
+}
 
         // Repas du Midi
         if ($_SESSION['chabbat'] && $_SESSION['repasMidi'] > 0) {
