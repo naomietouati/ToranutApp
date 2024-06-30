@@ -8,10 +8,12 @@ ob_start();
 </head>
 <body>
   <header>
-    <img src="images/logo2.png" alt="Votre photo" class="logo">
+    <a href="index.php">
+        <img src="images/logo2.png" alt="Votre photo" class="logo">
+    </a>
   </header>
 </body>
 <footer>
-    <p>&copy; 2023 Touati Naomie. Tous droits réservés.</p>
+    <p>&copy; 2024 Touati Naomie Sarah. Tous droits réservés.</p>
 </footer>
 </html>

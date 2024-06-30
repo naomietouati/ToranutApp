@@ -8,7 +8,7 @@
   </style>
   <script>
     function hideDownloadButton() {
-      var loadingContainer = document.querySelector('.loading-container');
+      var loadingContainer = document.querySelector('.loading');
       var spinner = document.querySelector('.spinner');
       var downloadButton = document.querySelector('.btn');
       var redirectButton = document.createElement('a');
@@ -28,7 +28,7 @@
   </script>
 </head>
 <body>
-  <div class="loading-container">
+  <div class="loading">
     <div class="spinner"></div>
     <div>
       <a href="index.php?uc=attribution&action=telechargerPdf" class="btn" onclick="hideDownloadButton()">Télécharger</a>
