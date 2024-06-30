@@ -23,41 +23,20 @@ switch ($action) {
 
         // Génération des tableaux pour le Repas du Soir
         if ($_SESSION['chabbat'] && $_SESSION['repasSoir'] > 0) {
-            for ($N = 1; $N <= $_SESSION['repasSoir']; $N++) {
-                $tableauTachesSoir = array();
-                $nomRepasS = ($_SESSION['repasSoir'] > 1) ? "$Nème Soir" : "Soir";
-                $repasS = $pdo->NbPersTacheS(); // tableau des tâches (id, nom, nbPers)
-
-                foreach ($repasS as $tache) {
-                    $nomTache = $tache['nom'];
-                    $nbPersRequis = $tache['nbPers'];
-
-                    $elevesAttribues = array();
-                    for ($i = 0; $i < $nbPersRequis; $i++) {
-                        if (empty($_SESSION["listeEleve"])) {
-                            $listeElevePresente = $pdo->afficherElevePresente();
-                            $_SESSION["listeEleve"] = $listeElevePresente;
-                            shuffle($_SESSION["listeEleve"]);
-                        }
-                        $eleve = array_shift($_SESSION["listeEleve"]);
-                        $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
-                    }
-
-                    $tableauTachesSoir[] = array(
-                        'nom' => $nomTache,
-                        'eleves' => $elevesAttribues
-                    );
-                }
-
-                $tableauxTaches[] = array(
-                    'nomRepas' => $nomRepasS,
-                    'tableau' => $tableauTachesSoir
-                );
-            }
+            $K = 1 + $_SESSION['repasSoir'];
         } else {
-            // Par défaut, générer au moins un tableau pour le Repas du Soir
+            $K = 1;
+        }
+
+        $N = 0;
+        while ($N < $K) {
             $tableauTachesSoir = array();
-            $nomRepasS = $_SESSION['chabbat'] ? "Vendredi Soir" : "Soir";
+            if ($N == 0 && $_SESSION['chabbat']) {
+                $nomRepasS = "Vendredi Soir";
+            } else {
+                $nomRepasS = ($N + 1) . "ème Soir";
+            }
+
             $repasS = $pdo->NbPersTacheS(); // tableau des tâches (id, nom, nbPers)
 
             foreach ($repasS as $tache) {
@@ -85,45 +64,26 @@ switch ($action) {
                 'nomRepas' => $nomRepasS,
                 'tableau' => $tableauTachesSoir
             );
+
+            $N++;
         }
 
         // Génération des tableaux pour le Repas du Midi
         if ($_SESSION['chabbat'] && $_SESSION['repasMidi'] > 0) {
-            for ($N = 1; $N <= $_SESSION['repasMidi']; $N++) {
-                $tableauTachesMidi = array();
-                $nomRepasM = ($_SESSION['repasMidi'] > 1) ? "$Nème Midi" : "Midi";
-                $repasM = $pdo->NbPersTacheM(); // tableau des tâches (id, nom, nbPers)
-
-                foreach ($repasM as $tache) {
-                    $nomTache = $tache['nom'];
-                    $nbPersRequis = $tache['nbPers'];
-
-                    $elevesAttribues = array();
-                    for ($i = 0; $i < $nbPersRequis; $i++) {
-                        if (empty($_SESSION["listeEleve"])) {
-                            $listeElevePresente = $pdo->afficherElevePresente();
-                            $_SESSION["listeEleve"] = $listeElevePresente;
-                            shuffle($_SESSION["listeEleve"]);
-                        }
-                        $eleve = array_shift($_SESSION["listeEleve"]);
-                        $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
-                    }
-
-                    $tableauTachesMidi[] = array(
-                        'nom' => $nomTache,
-                        'eleves' => $elevesAttribues
-                    );
-                }
-
-                $tableauxTaches[] = array(
-                    'nomRepas' => $nomRepasM,
-                    'tableau' => $tableauTachesMidi
-                );
-            }
+            $K = 1 + $_SESSION['repasMidi'];
         } else {
-            // Par défaut, générer au moins un tableau pour le Repas du Midi
+            $K = 1;
+        }
+
+        $N = 0;
+        while ($N < $K) {
             $tableauTachesMidi = array();
-            $nomRepasM = $_SESSION['chabbat'] ? "Chabbat Midi" : "Midi";
+            if ($N == 0 && $_SESSION['chabbat']) {
+                $nomRepasM = "Chabbat Midi";
+            } else {
+                $nomRepasM = ($N + 1) . "ème Midi";
+            }
+
             $repasM = $pdo->NbPersTacheM(); // tableau des tâches (id, nom, nbPers)
 
             foreach ($repasM as $tache) {
@@ -151,72 +111,8 @@ switch ($action) {
                 'nomRepas' => $nomRepasM,
                 'tableau' => $tableauTachesMidi
             );
-        }
 
-        // Génération des tableaux pour le Repas de Nehilat hahag
-        if ($_SESSION['chabbat'] && $_SESSION['nehilatHahag'] > 0) {
-            for ($N = 1; $N <= $_SESSION['nehilatHahag']; $N++) {
-                $tableauTachesC = array();
-                $nomRepasC = ($_SESSION['nehilatHahag'] > 1 && $N == 1) ? "Nehila Hah'ag" : "Seouda Chlichit";
-                $repasC = $pdo->NbPersTacheC(); // tableau des tâches (id, nom, nbPers)
-
-                foreach ($repasC as $tache) {
-                    $nomTache = $tache['nom'];
-                    $nbPersRequis = $tache['nbPers'];
-
-                    $elevesAttribues = array();
-                    for ($i = 0; $i < $nbPersRequis; $i++) {
-                        if (empty($_SESSION["listeEleve"])) {
-                            $listeElevePresente = $pdo->afficherElevePresente();
-                            $_SESSION["listeEleve"] = $listeElevePresente;
-                            shuffle($_SESSION["listeEleve"]);
-                        }
-                        $eleve = array_shift($_SESSION["listeEleve"]);
-                        $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
-                    }
-
-                    $tableauTachesC[] = array(
-                        'nom' => $nomTache,
-                        'eleves' => $elevesAttribues
-                    );
-                }
-
-                $tableauxTaches[] = array(
-                    'nomRepas' => $nomRepasC,
-                    'tableau' => $tableauTachesC
-                );
-            }
-        } else {
-            // Par défaut, générer au moins un tableau pour le Repas de Nehilat hahag
-            $tableauTachesC = array();
-            $nomRepasC = $_SESSION['chabbat'] ? "Seouda Chlichit" : "Nehilat Hah'ag";
-            $repasC = $pdo->NbPersTacheC(); // tableau des tâches (id, nom, nbPers)
-
-            foreach ($repasC as $tache) {
-                $nomTache = $tache['nom'];
-                $nbPersRequis = $tache['nbPers'];
-
-                $elevesAttribues = array();
-                for ($i = 0; $i < $nbPersRequis; $i++) {
-                    if (empty($_SESSION["listeEleve"])) {
-                        $listeElevePresente = $pdo->afficherElevePresente();
-                        $_SESSION["listeEleve"] = $listeElevePresente;
-                        shuffle($_SESSION["listeEleve"]);
-                    }
-                    $eleve = array_shift($_SESSION["listeEleve"]);
-                    $elevesAttribues[] = $eleve['nom'] . ' ' . $eleve['prenom'];
-                }
-
-                $tableauTachesC[] = array(
-                    'nom' => $nomTache,
-                    'eleves' => $elevesAttribues
-                );
-            }
-
-            $tableauxTaches[] = array(
-                'nomRepas' => $nomRepasC,
-                'tableau' => $tableauTachesC
-            );
+            $N++;
         }
 
         // Génération du PDF une seule fois après avoir construit toutes les données
