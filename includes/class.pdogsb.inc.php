@@ -1,10 +1,10 @@
 <?php
 class PdoGsb
 {
-    private static $hostname = 'eu-cluster-west-01.k8s.cleardb.net';
-    private static $username = 'b015a03328eefb';
-    private static $password = 'cf3b287c';
-    private static $database = 'heroku_c48f9fa37479c78';
+    private static $hostname = 'irkm0xtlo2pcmvvz.chr7pe7iynqr.eu-west-1.rds.amazonaws.com';
+    private static $username = 'bf75lbo76c6366hp';
+    private static $password = 'u18idaktwtdzsyjy';
+    private static $database = 'kltx407advaj5ec9';
     private static $monPdo;
     private static $monPdoGsb = null;
 
