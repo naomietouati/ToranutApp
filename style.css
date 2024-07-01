@@ -2,7 +2,7 @@ body {
   background-size: 100% auto;
   background-position: top left;
   background-repeat: repeat;
-  background-image: url("images/table.jpg");
+  background-image: url("images/Design.png");
   margin: 0;
   padding: 250px;
   font-family: Arial, sans-serif;
@@ -36,7 +36,7 @@ footer {
 }
 
 .heading {
-  color: #3b3706;
+  color: black;
   text-align: center;
 }
 
