@@ -15,7 +15,7 @@ function genererPDF($tableauxTaches)
         $this->AddPage('P', 'A4');
 
       
-        $this->Image('./images/fond.png', 0, 0, $this->GetPageWidth(), $this->GetPageHeight(), '', '', '', false);
+        $this->Image('./images/fondV.png', 0, 0, $this->GetPageWidth(), $this->GetPageHeight(), '', '', '', false);
 
  
         $this->SetFont('Arial', '', 12);
