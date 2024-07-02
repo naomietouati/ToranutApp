@@ -28,19 +28,32 @@ class PdoGsb
         }
         return self::$monPdoGsb;
     }
-
     public function BDD_Existe()
     {
         try {
+            // Vérifier si la table 'eleves' existe
             $query = "SHOW TABLES LIKE 'eleves'";
             $stmt = self::$monPdo->query($query);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return !empty($result);
+            
+            // Si la table n'existe pas, retourner false
+            if (empty($result)) {
+                return false;
+            }
+    
+            // Vérifier si la table 'eleves' contient des données
+            $query = "SELECT COUNT(*) as count FROM eleves";
+            $stmt = self::$monPdo->query($query);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            // Retourner true si la table contient au moins une ligne
+            return $result['count'] > 0;
         } catch (PDOException $e) {
-            echo 'Erreur lors de la vérification de l\'existence de la table : ' . $e->getMessage();
+            echo 'Erreur lors de la vérification de la table \'eleves\' : ' . $e->getMessage();
             return false;
         }
     }
+    
     
     public function CreationTableEleves(){
         $requete = "CREATE TABLE IF NOT EXISTS eleves (
